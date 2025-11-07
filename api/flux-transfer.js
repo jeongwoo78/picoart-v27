@@ -166,23 +166,39 @@ Analyze this photo and select the MOST suitable artwork from the ${cultureName} 
 COLLECTION (${artworkDatabase.length} artworks):
 ${JSON.stringify(artworkList, null, 2)}
 
-INSTRUCTIONS:
-1. Analyze the photo: subject (people/animals/nature/objects), age, mood, colors, atmosphere
-2. Match with artwork characteristics: subjects, colors, mood, style
-3. Consider subject match (portrait->portrait, landscape->landscape), mood match, color match
-4. Select the SINGLE BEST matching artwork by number
-5. Provide clear reasoning
+MATCHING RULES (IMPORTANT):
+1. SUBJECT PRIORITY:
+   - Portrait of woman/girl → Select artwork with "beauty portrait" or "women" in subjects
+   - Portrait of man/boy → Select artwork with "people" or appropriate figure painting
+   - Animals (tiger, bird, fish, horse) → Select artwork with matching animal
+   - Flowers/plants → Select artwork with matching flowers/plants
+   - Landscape/mountains/nature → Select landscape or mountain artwork
+   - Bright/colorful photo → Prefer "folk painting" style (vivid colors)
+   - Group of people → Select artwork with "festival" or "people" in subjects
+
+2. STYLE MATCHING:
+   - Elegant/refined photo → beauty portrait, elegant style
+   - Bright/cheerful/colorful → folk painting (Minhwa)
+   - Nature/simple → ink wash painting
+   - Dynamic/action → genre painting with movement
+
+3. COLOR MATCHING:
+   - Colorful vibrant photo → artworks with "bright colors", "vibrant colors", "folk painting"
+   - Monochrome/subtle photo → artworks with "black ink", "ink wash"
+
+CRITICAL: Pay special attention to whether the photo shows a PERSON (especially women) or ANIMALS or NATURE.
+Match the PRIMARY subject first, then consider mood and colors.
 
 Return ONLY valid JSON (no markdown, no code blocks):
 {
-  "analysis": "brief 2-sentence photo description",
+  "analysis": "brief photo description: subject type, mood, colors",
   "selected_number": number (1-${artworkDatabase.length}),
   "selected_title": "artwork title",
   "selected_artist": "artist name",
-  "match_reason": "why this artwork matches (2 sentences)"
+  "match_reason": "why this artwork matches: subject match + style match"
 }
 
-Be precise and thoughtful.`;
+Be precise and prioritize SUBJECT matching above all.`;
     
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
