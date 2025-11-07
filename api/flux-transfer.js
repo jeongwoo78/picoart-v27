@@ -1,20 +1,7 @@
-// PicoArt v27 - 동양화 DB 자동 매칭
-// 서양: v26 그대로 유지 (AI 자동 선택)
-// 동양화: 한국/중국 → DB 매칭, 일본 → 고정 스타일
+// PicoArt v25 - FLUX Depth + 동양화 단순화
+// 한국(민화), 일본(우키요에) 고정 / 중국만 AI 선택 (수묵화/공필화)
 
-// ========================================
-// 동양화 작품 데이터베이스
-// ========================================
-
-const chineseArtworks = [
-  { id: 'chinese_01', title: '천리강산도', artist: '왕희맹',
-    prompt: 'Chinese blue-green landscape painting (Qinglu Shanshui) style by Wang Ximeng, grand panoramic mountains and rivers, brilliant blue and green mineral pigments, golden aged paper, meticulous detailed gongbi technique, imperial court painting quality, majestic serene atmosphere',
-    subjects: ['mountains', 'rivers', 'nature', 'landscape'], colors: ['blue', 'green', 'gold'] },
-  { id: 'chinese_02', title: '궁녀도', artist: '주방',
-    prompt: 'Chinese gongbi court ladies painting style, elegant graceful female figures, delicate fine facial features, flowing robes, soft harmonious colors, extremely detailed brushwork, refined imperial court painting quality',
-    subjects: ['people', 'women', 'portraits'], colors: ['soft pastels', 'earth tones'] },
-  { id: 'chinese_03', title: '새우', artist: '제백석',
-    prompt: 'Chinese ink wash painting (Shuimohua) style by Qi Baishi, spontaneous expressive brushwork, lively movement, monochrome black ink
+// Fallback 프롬프트 (AI 실패시 사용)
 const fallbackPrompts = {
   ancient: {
     name: '고대 그리스-로마',
