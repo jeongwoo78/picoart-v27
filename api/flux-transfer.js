@@ -1,5 +1,28 @@
-// PicoArt v25 - FLUX Depth + 동양화 단순화
-// 한국(민화), 일본(우키요에) 고정 / 중국만 AI 선택 (수묵화/공필화)
+// PicoArt v27 - 동양화 DB 자동 매칭
+// 한국/중국: DB 8개 매칭, 일본: 고정, 서양: v26 유지
+
+// 동양화 DB
+const chineseArtworks = [
+  {id:'chinese_01',title:'천리강산도',artist:'왕희맹',subjects:['mountains','rivers','nature'],colors:['blue','green','gold'],mood:'majestic',style:'blue-green landscape',prompt:'Chinese blue-green landscape painting (Qinglu Shanshui) style by Wang Ximeng, grand panoramic mountains and rivers, brilliant blue and green mineral pigments, golden aged paper, meticulous detailed gongbi technique, imperial court painting quality, majestic serene atmosphere'},
+  {id:'chinese_02',title:'궁녀도',artist:'주방',subjects:['people','women','portraits'],colors:['soft pastels','earth tones'],mood:'elegant',style:'figure painting',prompt:'Chinese gongbi court ladies painting style, elegant graceful female figures, delicate fine facial features, flowing robes, soft harmonious colors, extremely detailed brushwork, refined imperial court painting quality'},
+  {id:'chinese_03',title:'새우',artist:'제백석',subjects:['animals','aquatic life'],colors:['black ink','grey'],mood:'lively',style:'ink wash',prompt:'Chinese ink wash painting (Shuimohua) style by Qi Baishi, spontaneous expressive brushwork, lively movement, monochrome black ink gradations, minimalist composition with elegant empty space, modern Chinese literati painting quality'},
+  {id:'chinese_06',title:'매화',artist:'왕면',subjects:['plum blossoms','flowers','branches'],colors:['black ink'],mood:'elegant',style:'ink plum',prompt:'Chinese ink plum blossom painting style, twisted elegant branches, spontaneous expressive brushwork, monochrome black ink, literati painting aesthetic, symbolic resilient spirit, classical Chinese painting quality'},
+  {id:'chinese_09',title:'미인도',artist:'당인',subjects:['women','portraits','beauty'],colors:['soft colors','pastels'],mood:'refined',style:'beauty portrait',prompt:'Chinese gongbi beauty portrait style, elegant refined female figure, delicate detailed facial features, soft harmonious colors, fine silk texture rendering, graceful posture, traditional Chinese beauty painting quality'},
+  {id:'chinese_11',title:'대나무',artist:'정섭',subjects:['bamboo','plants'],colors:['black ink','grey'],mood:'strong',style:'ink bamboo',prompt:'Chinese ink bamboo painting style by Zheng Xie, bold expressive brushstrokes, monochrome black ink, bamboo stalks and leaves, literati scholarly painting, symbolic of integrity and resilience, classical quality'},
+  {id:'chinese_13',title:'새',artist:'황전',subjects:['birds','flowers','nature'],colors:['natural colors'],mood:'delicate',style:'bird and flower',prompt:'Chinese gongbi bird and flower painting style, detailed naturalistic bird feathers, precise meticulous brushwork, delicate soft colors, traditional flower-bird painting (Huaniao), decorative elegant composition, imperial quality'},
+  {id:'chinese_15',title:'말',artist:'서비홍',subjects:['horses','animals','movement'],colors:['black ink'],mood:'powerful',style:'ink horse',prompt:'Chinese ink wash horse painting style by Xu Beihong, dynamic powerful movement, bold expressive brushstrokes, monochrome black ink, modern Chinese painting style, energetic composition, contemporary ink painting quality'}
+];
+
+const koreanArtworks = [
+  {id:'korean_01',title:'인왕제색도',artist:'정선',subjects:['mountains','rocks','landscape'],colors:['black ink','grey'],mood:'powerful',style:'true-view landscape',prompt:'Korean true-view landscape painting (Jingyeong Sansu) style by Jeong Seon, bold powerful rocky mountains, dramatic expressive brushwork, monochrome black ink washes, authentic Korean scenery, dynamic composition, masterpiece quality'},
+  {id:'korean_02',title:'미인도',artist:'신윤복',subjects:['women','beauty','portraits'],colors:['soft pastels'],mood:'elegant',style:'beauty portrait',prompt:'Korean beauty portrait painting by Shin Yunbok, elegant graceful female figure, delicate fine lines, soft gentle colors, Korean traditional beauty aesthetic, refined composition, Joseon Dynasty painting quality'},
+  {id:'korean_04',title:'까치호랑이',artist:'민화',subjects:['tiger','magpie','animals'],colors:['bright colors','bold outlines'],mood:'cheerful',style:'folk painting',prompt:'Korean folk painting (Minhwa) style, bold black outlines, vibrant bright colors from five Korean colors (Obangsaek: red blue yellow white black), humorous cheerful tiger and magpie, flat decorative composition, naive playful folk aesthetic, traditional Korean minhwa masterpiece'},
+  {id:'korean_05',title:'모란도',artist:'민화',subjects:['peony','birds','flowers'],colors:['rich vibrant colors'],mood:'prosperous',style:'folk flower',prompt:'Korean folk peony painting (Minhwa) style, rich vibrant peony flowers, decorative birds, bold colors, flat ornate composition, prosperity symbolism, traditional Korean folk art quality'},
+  {id:'korean_08',title:'금강전도',artist:'정선',subjects:['mountains','landscape'],colors:['ink','subtle colors'],mood:'majestic',style:'true-view landscape',prompt:'Korean true-view landscape painting by Jeong Seon, majestic Geumgang mountain peaks, bold powerful brushwork, ink with subtle colors, dramatic composition, authentic Korean scenery, masterpiece quality'},
+  {id:'korean_11',title:'월하정인',artist:'신윤복',subjects:['people','romance','night'],colors:['soft colors','moonlit tones'],mood:'romantic',style:'genre painting',prompt:'Korean romantic genre painting by Shin Yunbok, moonlit atmospheric scene, elegant figures, soft refined colors, delicate narrative composition, romantic mood, Joseon Dynasty painting quality'},
+  {id:'korean_13',title:'단오풍정',artist:'신윤복',subjects:['festival','people','celebration'],colors:['vibrant colors'],mood:'joyful',style:'genre painting',prompt:'Korean festival scene genre painting by Shin Yunbok, joyful gathering of women, vibrant festive colors, colorful traditional clothing, narrative social interaction, Joseon Dynasty painting quality'},
+  {id:'korean_15',title:'씨름',artist:'김홍도',subjects:['sport','wrestling','people'],colors:['natural earth tones'],mood:'lively',style:'genre painting',prompt:'Korean wrestling scene genre painting by Kim Hongdo, dynamic action of Korean traditional wrestling (Ssireum), lively crowd atmosphere, natural earth tone colors, energetic composition, Joseon Dynasty painting quality'}
+];
 
 // Fallback 프롬프트 (AI 실패시 사용)
 const fallbackPrompts = {
@@ -119,6 +142,112 @@ const fallbackPrompts = {
     prompt: 'Traditional East Asian painting style, ink wash brushwork, minimalist composition, harmony with nature, philosophical contemplation, painted in classical Oriental masterpiece quality'
   }
 };
+
+// 동양화 DB 매칭 함수
+async function selectOrientalArtwork(imageBase64, artworkDatabase, cultureName, timeoutMs = 10000) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  
+  try {
+    const artworkList = artworkDatabase.map((art, index) => ({
+      number: index + 1,
+      title: art.title,
+      artist: art.artist,
+      style: art.style,
+      subjects: art.subjects.join(', '),
+      colors: art.colors.join(', '),
+      mood: art.mood
+    }));
+    
+    const promptText = `You are an expert art curator specializing in ${cultureName} traditional painting.
+
+Analyze this photo and select the MOST suitable artwork from the ${cultureName} painting collection below.
+
+COLLECTION (${artworkDatabase.length} artworks):
+${JSON.stringify(artworkList, null, 2)}
+
+INSTRUCTIONS:
+1. Analyze the photo: subject (people/animals/nature/objects), age, mood, colors, atmosphere
+2. Match with artwork characteristics: subjects, colors, mood, style
+3. Consider subject match (portrait->portrait, landscape->landscape), mood match, color match
+4. Select the SINGLE BEST matching artwork by number
+5. Provide clear reasoning
+
+Return ONLY valid JSON (no markdown, no code blocks):
+{
+  "analysis": "brief 2-sentence photo description",
+  "selected_number": number (1-${artworkDatabase.length}),
+  "selected_title": "artwork title",
+  "selected_artist": "artist name",
+  "match_reason": "why this artwork matches (2 sentences)"
+}
+
+Be precise and thoughtful.`;
+    
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': process.env.ANTHROPIC_API_KEY,
+        'anthropic-version': '2023-06-01',
+        'content-type': 'application/json'
+      },
+      signal: controller.signal,
+      body: JSON.stringify({
+        model: 'claude-3-5-sonnet-20241022',
+        max_tokens: 600,
+        messages: [{
+          role: 'user',
+          content: [
+            {
+              type: 'image',
+              source: {
+                type: 'base64',
+                media_type: 'image/jpeg',
+                data: imageBase64.split(',')[1]
+              }
+            },
+            {
+              type: 'text',
+              text: promptText
+            }
+          ]
+        }]
+      })
+    });
+    
+    clearTimeout(timeout);
+    
+    if (!response.ok) {
+      throw new Error(`AI API error: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    const text = data.content[0].text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    const result = JSON.parse(text);
+    const selectedArtwork = artworkDatabase[result.selected_number - 1];
+    
+    if (!selectedArtwork) {
+      throw new Error('Invalid artwork selection');
+    }
+    
+    console.log(`✓ AI matched ${cultureName} artwork:`, selectedArtwork.title);
+    
+    return {
+      success: true,
+      artwork: selectedArtwork,
+      artist: `${selectedArtwork.title} (${selectedArtwork.artist})`,
+      title: selectedArtwork.title,
+      prompt: selectedArtwork.prompt,
+      analysis: result.analysis,
+      reason: result.match_reason
+    };
+    
+  } catch (error) {
+    clearTimeout(timeout);
+    console.error(`${cultureName} artwork selection failed:`, error.message);
+    return { success: false, error: error.message };
+  }
+}
 
 // AI 화가 자동 선택 (타임아웃 포함)
 async function selectArtistWithAI(imageBase64, selectedStyle, timeoutMs = 8000) {
@@ -351,32 +480,69 @@ export default async function handler(req, res) {
     let selectionMethod;
     let selectionDetails = {};
 
-    // 동양화 중 한국/일본은 AI 없이 바로 처리
+    // 1. 동양화 DB 매칭 (한국/중국)
     if (selectedStyle.category === 'oriental' && 
-        (selectedStyle.id === 'korean' || selectedStyle.id === 'japanese')) {
-      console.log(`Oriental art (${selectedStyle.id}) - using direct fallback`);
+        (selectedStyle.id === 'korean' || selectedStyle.id === 'chinese')) {
       
-      let fallbackKey;
-      if (selectedStyle.id === 'korean') {
-        fallbackKey = 'korean';
-      } else if (selectedStyle.id === 'japanese') {
-        fallbackKey = 'japanese';
+      console.log(`[v27] Oriental DB matching: ${selectedStyle.id}`);
+      
+      const artworkDatabase = selectedStyle.id === 'korean' ? koreanArtworks : chineseArtworks;
+      const cultureName = selectedStyle.id === 'korean' ? 'Korean' : 'Chinese';
+      
+      if (process.env.ANTHROPIC_API_KEY) {
+        console.log(`Trying AI artwork selection from ${cultureName} database (8 artworks)...`);
+        
+        const selection = await selectOrientalArtwork(image, artworkDatabase, cultureName);
+        
+        if (selection.success) {
+          finalPrompt = selection.prompt;
+          selectedArtist = selection.artist;
+          selectionMethod = 'oriental_db_match';
+          selectionDetails = {
+            artwork_id: selection.artwork.id,
+            artwork_title: selection.title,
+            artist: selection.artwork.artist,
+            style: selection.artwork.style,
+            analysis: selection.analysis,
+            match_reason: selection.reason
+          };
+          console.log('✅ AI matched artwork:', selectedArtist);
+        } else {
+          console.log('⚠️ AI matching failed, using first artwork as fallback');
+          const fallbackArtwork = artworkDatabase[0];
+          finalPrompt = fallbackArtwork.prompt;
+          selectedArtist = `${fallbackArtwork.title} (${fallbackArtwork.artist})`;
+          selectionMethod = 'oriental_db_fallback';
+          selectionDetails = {
+            artwork_id: fallbackArtwork.id,
+            error: selection.error
+          };
+        }
+      } else {
+        console.log('ℹ️ No AI key, using first artwork from database');
+        const fallbackArtwork = artworkDatabase[0];
+        finalPrompt = fallbackArtwork.prompt;
+        selectedArtist = `${fallbackArtwork.title} (${fallbackArtwork.artist})`;
+        selectionMethod = 'oriental_db_no_ai';
+        selectionDetails = {
+          artwork_id: fallbackArtwork.id
+        };
       }
       
-      const fallback = fallbackPrompts[fallbackKey];
-      if (!fallback) {
-        throw new Error(`No fallback prompt for: ${fallbackKey}`);
-      }
+    // 2. 일본 우키요에 (고정)
+    } else if (selectedStyle.category === 'oriental' && selectedStyle.id === 'japanese') {
+      console.log('Japanese Ukiyo-e - using fixed style');
       
+      const fallback = fallbackPrompts.japanese;
       finalPrompt = fallback.prompt;
       selectedArtist = fallback.name;
-      selectionMethod = 'oriental_direct';
+      selectionMethod = 'oriental_fixed';
       selectionDetails = {
-        style: fallbackKey
+        style: 'japanese_ukiyoe'
       };
       
+    // 3. 서양 미술 (미술사조/거장)
     } else if (process.env.ANTHROPIC_API_KEY) {
-      // 미술사조/거장/중국 전통회화는 AI 자동 선택 시도
       console.log(`Trying AI artist selection for ${selectedStyle.name}...`);
       
       const aiResult = await selectArtistWithAI(
