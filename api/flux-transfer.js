@@ -1,5 +1,5 @@
-// PicoArt v28 - 한국 DB 10개 확장 + 텍스트 정책 명확화
-// 일본어(히라가나/가타카나)→일본만, 한자→중국/한국OK
+// PicoArt v28.5 - 동양화 한국/중국 선택시 일본어 완전 금지
+// Korean & Chinese art: 한자 허용, 일본 히라가나/가타카나 엄격 금지
 
 // 동양화 DB
 const chineseArtworks = [
@@ -19,7 +19,7 @@ const koreanArtworks = [
   {id:'korean_03',title:'단오풍정',artist:'신윤복',subjects:['festival','people','celebration'],colors:['vibrant colors'],mood:'joyful',style:'genre painting',prompt:'Korean Hyewon Shin Yunbok Joseon Dynasty Pungsokdo genre painting, Dano festival scene with Korean women in colorful hanbok outdoors, vibrant festive atmosphere, narrative storytelling of Korean daily life, painted on hanji with mineral pigments, KOREAN GENRE PAINTING tradition unique to Joseon Korea, absolutely NOT Chinese court formality, absolutely NOT Japanese ukiyo-e entertainment, Chinese characters allowed, NO Japanese kana'},
   {id:'korean_04',title:'월하정인',artist:'신윤복',subjects:['people','romance','night'],colors:['soft colors','moonlit tones'],mood:'romantic',style:'genre painting',prompt:'Korean Hyewon Shin Yunbok romantic moonlight Pungsokdo genre painting, Joseon Dynasty style, Korean figures in hanbok under moonlight, soft refined colors with ink washes, intimate romantic narrative, KOREAN ROMANTIC GENRE PAINTING tradition, absolutely NOT Chinese scholar painting, absolutely NOT Japanese ukiyo-e drama, Chinese characters allowed, NO Japanese kana'},
   {id:'korean_05',title:'모란도',artist:'민화',subjects:['peony','birds','flowers'],colors:['rich vibrant colors'],mood:'prosperous',style:'folk flower',prompt:'Korean Minhwa folk painting PEONY flowers, PRESERVE photo composition, THICK BLACK OUTLINES around all shapes, BRIGHT PRIMARY colors from Obangsaek, completely FLAT decorative naive composition, prosperity symbolism, DISTINCTLY KOREAN MINHWA not refined Chinese Huaniao, absolutely NOT elegant Japanese flower prints, NO anime, NO added characters, Chinese characters allowed, NO Japanese kana'},
-  {id:'korean_06',title:'책거리',artist:'민화',subjects:['books','stationery','still life','scholar objects'],colors:['bright colors','colorful patterns'],mood:'scholarly',style:'folk still life',prompt:'Korean Minhwa Chaekgeori folk painting scholar objects still life, THICK BLACK OUTLINES, stacked books and objects, BRIGHT decorative colors, FLAT impossible perspective, geometric ornate patterns, uniquely KOREAN folk genre, ABSOLUTELY NOT Chinese scholar paintings, ABSOLUTELY NOT Japanese screens, Chinese characters allowed on books, NO Japanese kana'},
+  {id:'korean_06',title:'책거리',artist:'민화',subjects:['books','stationery','still life','scholar objects'],colors:['bright colors','colorful patterns'],mood:'scholarly',style:'folk still life',prompt:'Korean Minhwa Chaekgeori folk painting scholar objects still life, THICK BLACK OUTLINES, stacked books and objects, BRIGHT decorative colors, FLAT impossible perspective, geometric ornate patterns, uniquely KOREAN folk genre, ABSOLUTELY NOT Chinese scholar paintings, ABSOLUTELY NOT Japanese screens or byobu, this is PURELY KOREAN STYLE with Korean aesthetics, Chinese characters MAY appear on book spines only as text NOT as decorative element, STRICTLY NO Japanese hiragana katakana, NO Japanese decorative elements, NO Japanese artistic style'},
   {id:'korean_07',title:'맹호도',artist:'조선시대',subjects:['tiger','fierce','animal','pine tree'],colors:['black ink','brown','aged paper'],mood:'powerful',style:'realistic animal',prompt:'Korean Joseon Dynasty fierce tiger painting Maenghodo, realistic powerful Korean tiger under pine tree, detailed fur texture, monochrome ink with subtle brown on aged hanji, dignified guardian symbolism, bold expressive Korean brushwork, KOREAN TIGER PAINTING tradition, absolutely NOT Chinese decorative tigers, absolutely NOT Japanese stylized tigers, Chinese characters allowed, NO Japanese kana'},
   {id:'korean_08',title:'인왕제색도',artist:'정선',subjects:['mountains','rocks','landscape'],colors:['black ink','grey'],mood:'powerful',style:'true-view landscape',prompt:'Korean Jeong Seon Jingyeong Sansu true-view landscape, bold powerful Inwangsan rocky mountains of Korea, dramatic EXPRESSIVE brushwork unique to Korean landscape tradition, monochrome ink with bold angular forms, REAL Korean scenery not idealized Chinese mountains, revolutionary Korean style rejecting Chinese conventions, absolutely NOT Chinese literati landscapes, absolutely NOT Japanese decorative landscapes, Chinese characters allowed, NO Japanese kana'},
   {id:'korean_09',title:'화조도',artist:'조선시대',subjects:['flowers','birds','nature'],colors:['natural harmonious colors'],mood:'harmonious',style:'flower bird',prompt:'Korean Joseon Dynasty Hwajodo flower-bird painting, PRESERVE photo composition, harmonious naturalistic composition, natural elegant colors, refined brushwork on hanji, Korean aesthetic sensibility, peaceful contemplative mood, KOREAN FLOWER-BIRD tradition, absolutely NOT Chinese decorative Huaniao, absolutely NOT Japanese bold bird prints, NO anime, NO added characters, Chinese characters allowed, NO Japanese kana'},
@@ -121,12 +121,12 @@ const fallbackPrompts = {
   
   chinese_ink: {
     name: '중국 수묵화',
-    prompt: 'Chinese ink wash painting (Shuimohua) style with monochrome black ink gradations from deep black to light grey, soft flowing brushstrokes, minimalist composition with elegant empty space, misty mountains or pine trees, serene meditative atmosphere, painted in authentic Chinese literati painting masterpiece quality, Chinese characters allowed, NOT Korean style'
+    prompt: 'Chinese ink wash painting (Shuimohua) style with monochrome black ink gradations from deep black to light grey, soft flowing brushstrokes, minimalist composition with elegant empty space, misty mountains or pine trees, serene meditative atmosphere, painted in authentic Chinese literati painting masterpiece quality, Chinese characters allowed, STRICTLY NO Japanese hiragana katakana, NOT Korean style, NOT Japanese style'
   },
   
   chinese_gongbi: {
     name: '중국 공필화',
-    prompt: 'Chinese gongbi meticulous painting style with extremely fine detailed brushwork, delicate precise lines, rich mineral pigments, brilliant colors, birds and flowers subjects, ornate decorative patterns, painted in authentic Chinese imperial court gongbi masterpiece quality, Chinese characters allowed, NOT Korean style'
+    prompt: 'Chinese gongbi meticulous painting style with extremely fine detailed brushwork, delicate precise lines, rich mineral pigments, brilliant colors, birds and flowers subjects, ornate decorative patterns, painted in authentic Chinese imperial court gongbi masterpiece quality, Chinese characters allowed, STRICTLY NO Japanese hiragana katakana, NOT Korean style, NOT Japanese style'
   },
   
   japanese: {
@@ -366,13 +366,18 @@ Style 2: Chinese Gongbi Meticulous Painting (工筆畫)
 
 Analyze the photo and choose the MOST suitable style.
 
+CRITICAL LANGUAGE RULE:
+- Chinese characters (漢字) are ALLOWED
+- Japanese hiragana (ひらがな) and katakana (カタカナ) are STRICTLY FORBIDDEN
+- This is CHINESE art, NOT Japanese art
+
 Return ONLY valid JSON (no markdown):
 {
   "analysis": "brief photo description (1 sentence)",
   "selected_artist": "Chinese ink wash painting" or "Chinese gongbi painting",
   "selected_style": "ink_wash" or "gongbi",
   "reason": "why this style fits (1 sentence)",
-  "prompt": "Complete FLUX prompt starting with 'Chinese [style name] style, [detailed characteristics]...'"
+  "prompt": "Complete FLUX prompt starting with 'Chinese [style name] style, [detailed characteristics]... Chinese characters allowed, STRICTLY NO Japanese hiragana katakana, NOT Japanese ukiyo-e'"
 }
 
 Keep it concise and accurate.`;
@@ -720,7 +725,7 @@ export default async function handler(req, res) {
             control_image: image,
             prompt: finalPrompt,
             num_inference_steps: 28,       // 28-50 추천
-            guidance: 10,                   // 기본값 10 (guidance_scale 대체)
+            guidance: 7,                    // 10 → 7 (일본 오인식 방지)
             output_format: 'jpg',
             output_quality: 90
           }
