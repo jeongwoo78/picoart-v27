@@ -1,30 +1,42 @@
-// PicoArt v28.8 - 일본어 차단 재강화 + 한국 성별 유지
-// Ultra-strong Japanese blocking + Gender preservation for Korean art
+// PicoArt v28.10 - 실제 파일 구조 반영 + 커플 남성 얼굴 참조
+// Real file structure + Couple male face reference enhancement
 
 // 동양화 DB
 const chineseArtworks = [
   {id:'chinese_01',title:'천리강산도',artist:'왕희맹',subjects:['mountains','rivers','nature'],colors:['blue','green','gold'],mood:'majestic',style:'blue-green landscape',prompt:'Chinese blue-green landscape painting Qinglu Shanshui style by Wang Ximeng, grand panoramic mountains and rivers, brilliant blue-green mineral pigments, golden aged paper, meticulous gongbi technique, imperial court quality, majestic serene atmosphere, ALLOWED: Chinese (漢字/汉字) text only, ABSOLUTELY NO Japanese hiragana (ひらがな), ABSOLUTELY NO Japanese katakana (カタカナ), NO Japanese text, PURE CHINESE NOT Japanese'},
   {id:'chinese_02',title:'궁녀도',artist:'주방',subjects:['people','women','portraits'],colors:['soft pastels','earth tones'],mood:'elegant',style:'figure painting',prompt:'Chinese gongbi court painting style, CRITICAL STRICT: if subject is male MUST keep male features and masculine face with beard, if subject is female MUST keep female features, elegant graceful figures, delicate fine facial features, flowing robes, soft harmonious colors, extremely detailed brushwork, refined imperial court quality, ABSOLUTELY PRESERVE ORIGINAL GENDER, ALLOWED: Chinese (漢字/汉字) text only, ABSOLUTELY NO Japanese hiragana (ひらがな), ABSOLUTELY NO Japanese katakana (カタカナ), NO Japanese text, PURE CHINESE NOT Japanese'},
   {id:'chinese_03',title:'새우',artist:'제백석',subjects:['animals','aquatic life'],colors:['black ink','grey'],mood:'lively',style:'ink wash',prompt:'Chinese ink wash painting Shuimohua style by Qi Baishi, spontaneous expressive brushwork, lively movement, monochrome black ink gradations, minimalist composition with elegant empty space, modern Chinese literati painting quality, ALLOWED: Chinese (漢字/汉字) text only, ABSOLUTELY NO Japanese hiragana (ひらがな), ABSOLUTELY NO Japanese katakana (カタカナ), NO Japanese text, PURE CHINESE NOT Japanese'},
-  {id:'chinese_04_male',title:'황제 초상',artist:'명대',subjects:['men','emperor','portraits'],colors:['imperial colors','gold'],mood:'dignified',style:'male portrait',prompt:'Chinese Ming Dynasty emperor portrait, MASCULINE FEATURES ONLY STRICTLY ENFORCED, dignified Chinese male ruler in imperial attire, strong masculine face with beard MUST HAVE BEARD, serious imperial expression, traditional Chinese male emperor portrait quality, ABSOLUTELY PRESERVE MALE GENDER, ALLOWED: Chinese (漢字/汉字) text only, ABSOLUTELY NO Japanese hiragana (ひらがな), ABSOLUTELY NO Japanese katakana (カタカナ), NO Japanese text, PURE CHINESE NOT Japanese'},
   {id:'chinese_09',title:'미인도',artist:'당인',subjects:['women','portraits','beauty'],colors:['soft colors','pastels'],mood:'refined',style:'beauty portrait',prompt:'Chinese gongbi beauty portrait style, CRITICAL STRICT: if male MUST keep masculine features with beard, if female MUST keep feminine features, elegant refined figure, delicate detailed facial features, soft harmonious colors, fine silk texture rendering, graceful posture, traditional Chinese beauty painting quality, ABSOLUTELY PRESERVE ORIGINAL GENDER, ALLOWED: Chinese (漢字/汉字) text only, ABSOLUTELY NO Japanese hiragana (ひらがな), ABSOLUTELY NO Japanese katakana (カタカナ), NO Japanese text, PURE CHINESE NOT Japanese'},
   {id:'chinese_11',title:'대나무',artist:'정섭',subjects:['bamboo','plants'],colors:['black ink','grey'],mood:'strong',style:'ink bamboo',prompt:'Chinese ink bamboo painting style by Zheng Xie, bold expressive brushstrokes, monochrome black ink, bamboo stalks and leaves, literati scholarly painting, symbolic of integrity and resilience, classical quality, ALLOWED: Chinese (漢字/汉字) text only, ABSOLUTELY NO Japanese hiragana (ひらがな), ABSOLUTELY NO Japanese katakana (カタカナ), NO Japanese text, PURE CHINESE NOT Japanese'},
   {id:'chinese_13',title:'새',artist:'황전',subjects:['birds','flowers','nature'],colors:['natural colors'],mood:'delicate',style:'bird and flower',prompt:'Chinese gongbi bird and flower painting style, detailed naturalistic bird feathers, precise meticulous brushwork, delicate soft colors, traditional flower-bird painting Huaniao, decorative elegant composition, imperial quality, ALLOWED: Chinese (漢字/汉字) text only, ABSOLUTELY NO Japanese hiragana (ひらがな), ABSOLUTELY NO Japanese katakana (カタカナ), NO Japanese text, PURE CHINESE NOT Japanese'},
-  {id:'chinese_15',title:'말',artist:'서비홍',subjects:['horses','animals','movement'],colors:['black ink'],mood:'powerful',style:'ink horse',prompt:'Chinese ink wash horse painting style by Xu Beihong, dynamic powerful movement, bold expressive brushstrokes, monochrome black ink, modern Chinese painting style, energetic composition, contemporary ink painting quality, ALLOWED: Chinese (漢字/汉字) text only, ABSOLUTELY NO Japanese hiragana (ひらがな), ABSOLUTELY NO Japanese katakana (カタカナ), NO Japanese text, PURE CHINESE NOT Japanese'}
+  {id:'chinese_15',title:'말',artist:'서비홍',subjects:['horses','animals','movement'],colors:['black ink'],mood:'powerful',style:'ink horse',prompt:'Chinese ink wash horse painting style by Xu Beihong, dynamic powerful movement, bold expressive brushstrokes, monochrome black ink, modern Chinese painting style, energetic composition, contemporary ink painting quality, ALLOWED: Chinese (漢字/汉字) text only, ABSOLUTELY NO Japanese hiragana (ひらがな), ABSOLUTELY NO Japanese katakana (カタカナ), NO Japanese text, PURE CHINESE NOT Japanese'},
+  {id:'chinese_16_males',title:'명대 남성 초상',artist:'명대',subjects:['men','multiple men','male portraits','scholars'],colors:['traditional colors','earth tones'],mood:'dignified',style:'male portrait',prompt:'Chinese Ming Dynasty male portraits, MASCULINE FEATURES ONLY STRICTLY ENFORCED, dignified Chinese men in traditional scholar attire, strong masculine faces with beards MUST HAVE BEARDS, serious scholarly expressions, MULTIPLE MALE FIGURES if photo shows multiple people, traditional Chinese male portrait quality, ABSOLUTELY PRESERVE MALE GENDER FOR ALL MEN, REFERENCE: Ming Dynasty emperor and scholar male face characteristics - strong jawline, facial hair, dignified masculine expression, ALLOWED: Chinese (漢字/汉字) text only, ABSOLUTELY NO Japanese hiragana (ひらがな), ABSOLUTELY NO Japanese katakana (カタカナ), NO Japanese text, PURE CHINESE NOT Japanese'}
 ];
 
 const koreanArtworks = [
-  {id:'korean_01',title:'미인도',artist:'신윤복',subjects:['women','beauty','portraits'],colors:['soft pastels'],mood:'elegant',style:'beauty portrait',prompt:'Korean Hyewon Shin Yunbok Joseon Pungsokdo genre painting, CRITICAL: if subject is male keep male features and masculine appearance, if subject is female keep female features, elegant figure in hanbok, soft pastel colors, gentle expression on hanji, PRESERVE ORIGINAL GENDER, NO anime NO animation TRADITIONAL PAINTING ONLY, NO anime NO animation TRADITIONAL PAINTING ONLY, ALLOWED: Hangul (한글) + Chinese (漢字) text only, NO Japanese kana (ひらがな/カタカナ), PURE KOREAN'},
+  {id:'korean_01',title:'미인도',artist:'신윤복',subjects:['women','beauty','portraits'],colors:['soft pastels'],mood:'elegant',style:'beauty portrait',prompt:'Korean Hyewon Shin Yunbok Joseon Pungsokdo genre painting, CRITICAL: if subject is male keep male features and masculine appearance, if subject is female keep female features, elegant figure in hanbok, soft pastel colors, gentle expression on hanji, PRESERVE ORIGINAL GENDER, NO anime NO animation TRADITIONAL PAINTING ONLY, ALLOWED: Hangul (한글) + Chinese (漢字) text only, NO Japanese kana (ひらがな/カタカナ), PURE KOREAN'},
   {id:'korean_02',title:'까치호랑이',artist:'민화',subjects:['tiger','magpie','animals'],colors:['bright colors','bold outlines'],mood:'cheerful',style:'folk painting',prompt:'Korean Minhwa folk painting, THICK BOLD BLACK OUTLINES, BRIGHT Obangsaek colors (red blue yellow white black), FLAT naive composition, playful tiger and magpie, UNIQUELY KOREAN style, NO anime NO animation TRADITIONAL PAINTING ONLY, ALLOWED: Hangul (한글) + Chinese (漢字) text only, NO Japanese kana (ひらがな/カタカナ), PURE KOREAN'},
   {id:'korean_03',title:'단오풍정',artist:'신윤복',subjects:['festival','people','celebration'],colors:['vibrant colors'],mood:'joyful',style:'genre painting',prompt:'Korean Hyewon Shin Yunbok Joseon Pungsokdo genre painting, CRITICAL: maintain each person original gender from photo, if male keep male if female keep female, Dano festival with Korean figures in colorful hanbok, vibrant festive atmosphere, Korean daily life storytelling, PRESERVE ALL ORIGINAL GENDERS, NO anime NO animation TRADITIONAL PAINTING ONLY, ALLOWED: Hangul (한글) + Chinese (漢字) text only, NO Japanese kana (ひらがな/カタカナ), PURE KOREAN'},
-  {id:'korean_03_couple',title:'월하정인',artist:'신윤복',subjects:['couple','romance','man','woman'],colors:['soft colors','moonlit'],mood:'romantic',style:'couple painting',prompt:'Korean Hyewon Shin Yunbok romantic moonlight scene Wolhwa Jeongin, CRITICAL: couple photo BOTH genders male stays male female stays female, Korean man and woman in hanbok under moonlight, soft ink wash colors on hanji, intimate romantic atmosphere, TRADITIONAL JOSEON SUKMUKDAMCHAE PAINTING STYLE ONLY, ABSOLUTELY NO anime NO animation NO modern illustration, AUTHENTIC CLASSICAL KOREAN PAINTING, PRESERVE BOTH ORIGINAL GENDERS, ALLOWED: Hangul (한글) + Chinese (漢字) text only, NO Japanese kana (ひらがな/カタカナ), PURE KOREAN'},
-  {id:'korean_04_male',title:'선비 초상',artist:'조선시대',subjects:['men','scholars','portraits'],colors:['earth tones','black ink'],mood:'dignified',style:'male portrait',prompt:'Korean Joseon Dynasty male scholar portrait, MASCULINE FEATURES ONLY, dignified Korean man in traditional scholar official attire with gat hat, strong masculine face with beard, serious scholarly expression on hanji, KOREAN MALE PORTRAIT tradition, PRESERVE MALE GENDER, NO anime NO animation TRADITIONAL PAINTING ONLY, ALLOWED: Hangul (한글) + Chinese (漢字) text only, NO Japanese kana (ひらがな/カタカナ), PURE KOREAN'},
+  {id:'korean_03_kim_study',title:'서당',artist:'김홍도',subjects:['children','learning','education','teacher','multiple people'],colors:['natural earth tones','soft colors'],mood:'scholarly',style:'genre painting',prompt:'Korean Danwon Kim Hongdo Seodang (village school) scene, PRESERVE each person gender and age from photo, children learning with teacher, warm educational atmosphere, soft natural earth tones, Korean traditional education culture, swift brushwork, ICONIC KOREAN GENRE PAINTING, NO anime NO animation TRADITIONAL PAINTING ONLY, ALLOWED: Hangul (한글) + Chinese (漢字) text only, NO Japanese kana (ひらがな/カタカナ), PURE KOREAN'},
+  {id:'korean_04_male',title:'선비 초상',artist:'조선시대',subjects:['men','scholars','portraits','single man'],colors:['earth tones','black ink'],mood:'dignified',style:'male portrait',prompt:'Korean Joseon Dynasty male scholar portrait, MASCULINE FEATURES ONLY STRICTLY ENFORCED, dignified Korean man in traditional scholar official attire with gat hat, strong masculine face with beard MUST HAVE BEARD, serious scholarly expression on hanji, KOREAN MALE PORTRAIT tradition with strong jawline and facial hair, PRESERVE MALE GENDER, NO anime NO animation TRADITIONAL PAINTING ONLY, ALLOWED: Hangul (한글) + Chinese (漢字) text only, NO Japanese kana (ひらがな/カタカナ), PURE KOREAN'},
   {id:'korean_06',title:'책거리',artist:'민화',subjects:['books','stationery','still life','scholar objects'],colors:['bright colors','colorful patterns'],mood:'scholarly',style:'folk still life',prompt:'Korean Minhwa Chaekgeori folk painting, scholar objects still life, THICK BLACK OUTLINES, BRIGHT decorative colors, FLAT impossible perspective, PURELY KOREAN folk genre, NO anime NO animation TRADITIONAL PAINTING ONLY, ALLOWED: Hangul (한글) + Chinese (漢字) on book spines as text only, NO Japanese kana (ひらがな/カタカナ), PURE KOREAN'},
   {id:'korean_07',title:'맹호도',artist:'조선시대',subjects:['tiger','fierce','animal','pine tree'],colors:['black ink','brown','aged paper'],mood:'powerful',style:'realistic animal',prompt:'Korean Joseon fierce tiger painting Maenghodo, powerful tiger under pine tree, detailed fur texture, monochrome ink with brown on aged hanji, bold Korean brushwork, NO anime NO animation TRADITIONAL PAINTING ONLY, ALLOWED: Hangul (한글) + Chinese (漢字) text only, NO Japanese kana (ひらがな/カタカナ), PURE KOREAN'},
   {id:'korean_08',title:'인왕제색도',artist:'정선',subjects:['mountains','rocks','landscape'],colors:['black ink','grey'],mood:'powerful',style:'true-view landscape',prompt:'Korean Jeong Seon Jingyeong true-view landscape, bold Inwangsan rocky mountains, dramatic EXPRESSIVE Korean brushwork, monochrome ink angular forms, REAL Korean scenery, revolutionary Korean landscape tradition, NO anime NO animation TRADITIONAL PAINTING ONLY, ALLOWED: Hangul (한글) + Chinese (漢字) text only, NO Japanese kana (ひらがな/カタカナ), PURE KOREAN'},
-  {id:'korean_09',title:'화조도',artist:'조선시대',subjects:['flowers','birds','nature'],colors:['natural harmonious colors'],mood:'harmonious',style:'flower bird',prompt:'Korean Joseon Hwajodo flower-bird painting, PRESERVE photo composition, harmonious naturalistic composition, natural elegant colors, refined brushwork on hanji, peaceful contemplative mood, KOREAN FLOWER-BIRD tradition, NO anime NO animation TRADITIONAL PAINTING ONLY, ALLOWED: Hangul (한글) + Chinese (漢字) text only, NO Japanese kana (ひらがな/カタ카ナ), PURE KOREAN'},
-  {id:'korean_10',title:'씨름',artist:'김홍도',subjects:['sport','wrestling','people','men'],colors:['natural earth tones'],mood:'lively',style:'genre painting',prompt:'Korean Danwon Kim Hongdo Pungsokdo genre painting, dynamic Ssireum wrestling action, lively Korean men, natural earth tones, energetic Korean folk culture composition, swift brushwork, ICONIC KOREAN GENRE PAINTING, NO anime NO animation TRADITIONAL PAINTING ONLY, ALLOWED: Hangul (한글) + Chinese (漢字) text only, NO Japanese kana (ひらがな/カタカナ), PURE KOREAN'}
+  {id:'korean_09',title:'화조도',artist:'조선시대',subjects:['flowers','birds','nature'],colors:['natural harmonious colors'],mood:'harmonious',style:'flower bird',prompt:'Korean Joseon Hwajodo flower-bird painting, PRESERVE photo composition, harmonious naturalistic composition, natural elegant colors, refined brushwork on hanji, peaceful contemplative mood, KOREAN FLOWER-BIRD tradition, NO anime NO animation TRADITIONAL PAINTING ONLY, ALLOWED: Hangul (한글) + Chinese (漢字) text only, NO Japanese kana (ひらがな/カタカナ), PURE KOREAN'},
+  {id:'korean_10',title:'씨름',artist:'김홍도',subjects:['sport','wrestling','people','men','action'],colors:['natural earth tones'],mood:'lively',style:'genre painting',prompt:'Korean Danwon Kim Hongdo Pungsokdo genre painting, dynamic Ssireum wrestling action, lively Korean men, natural earth tones, energetic Korean folk culture composition, swift brushwork, ICONIC KOREAN GENRE PAINTING, NO anime NO animation TRADITIONAL PAINTING ONLY, ALLOWED: Hangul (한글) + Chinese (漢字) text only, NO Japanese kana (ひらがな/カタカナ), PURE KOREAN'}
 ];
+
+// 커플 사진용 특수 프롬프트 강화 함수
+function enhanceCouplePrompt(basePrompt, cultureName) {
+  if (cultureName === 'Chinese') {
+    // 중국 커플: chinese_16_males의 남성 얼굴 참조
+    return basePrompt + ' | CRITICAL FOR COUPLE PHOTOS: Male figure MUST reference Chinese Ming Dynasty male portrait style from chinese_16_males - strong masculine face with beard, dignified male scholar features, serious expression. Female figure keeps elegant feminine features. ABSOLUTELY PRESERVE BOTH GENDERS SEPARATELY.';
+  } else if (cultureName === 'Korean') {
+    // 한국 커플: korean_04_male의 남성 얼굴 참조
+    return basePrompt + ' | CRITICAL FOR COUPLE PHOTOS: Male figure MUST reference Korean Joseon scholar portrait style from korean_04_male - masculine face with beard, gat hat, strong jawline, dignified expression. Female figure keeps elegant hanbok feminine features. ABSOLUTELY PRESERVE BOTH GENDERS SEPARATELY.';
+  }
+  return basePrompt;
+}
 
 // Fallback 프롬프트 (AI 실패시 사용)
 const fallbackPrompts = {
@@ -166,6 +178,13 @@ async function selectOrientalArtwork(imageBase64, artworkDatabase, cultureName, 
       ? '\n\nIMPORTANT: You are selecting KOREAN traditional painting. Do NOT confuse with Chinese or Japanese styles. Korean art uses Chinese characters but has distinct Korean aesthetic.'
       : '\n\nIMPORTANT: You are selecting CHINESE traditional painting. Focus on Chinese-specific characteristics. Chinese art uses Chinese characters as essential cultural elements.';
     
+    // v28.10: 커플/남성 감지 강화
+    const genderGuidance = `\n\nGENDER MATCHING CRITICAL RULES:
+- Photo shows COUPLE (man + woman) → Select artwork with "couple" in subjects if available
+- Photo shows SINGLE MAN or MULTIPLE MEN → Select artwork with "men", "male", "scholars" in subjects
+- Photo shows WOMAN/WOMEN → Select artwork with "women", "beauty" in subjects
+- Photo shows CHILDREN → Select artwork with "children", "learning" in subjects`;
+    
     const promptText = `You are an expert art curator specializing in ${cultureName} traditional painting.
 
 Analyze this photo and select the MOST suitable artwork from the ${cultureName} painting collection below.
@@ -173,40 +192,39 @@ Analyze this photo and select the MOST suitable artwork from the ${cultureName} 
 COLLECTION (${artworkDatabase.length} artworks):
 ${JSON.stringify(artworkList, null, 2)}
 ${styleEmphasis}
+${genderGuidance}
 
-MATCHING RULES (IMPORTANT):
-1. SUBJECT PRIORITY:
-   - Portrait of woman/girl → Select artwork with "beauty portrait" or "women" in subjects
-   - Portrait of man/boy → Select artwork with "people" or appropriate figure painting
-   - Animals (tiger, bird, fish, horse) → Select artwork with matching animal
-   - Flowers/plants → Select artwork with matching flowers/plants
-   - Landscape/mountains/nature → Select landscape or mountain artwork
-   - Bright/colorful photo → Prefer "folk painting" style (vivid colors)
-   - Group of people → Select artwork with "festival" or "people" in subjects
+MATCHING RULES (PRIORITY ORDER):
+1. GENDER/PEOPLE PRIORITY (MOST IMPORTANT):
+   - Couple (man + woman together) → artwork with "couple" subjects
+   - Single man or men only → artwork with "men", "male", "scholars" subjects
+   - Woman/women only → artwork with "women", "beauty" subjects
+   - Children/learning scene → artwork with "children", "education" subjects
+   - Multiple people → artwork with "festival", "people" subjects
 
-2. STYLE MATCHING:
-   - Elegant/refined photo → beauty portrait, elegant style
-   - Bright/cheerful/colorful → folk painting (Minhwa)
-   - Nature/simple → ink wash painting
-   - Dynamic/action → genre painting with movement
+2. SUBJECT MATCHING:
+   - Animals (tiger, bird, horse) → matching animal artwork
+   - Flowers/plants → matching flora artwork
+   - Landscape/mountains → landscape artwork
+   - Still life/objects → still life artwork
 
-3. COLOR MATCHING:
-   - Colorful vibrant photo → artworks with "bright colors", "vibrant colors", "folk painting"
-   - Monochrome/subtle photo → artworks with "black ink", "ink wash"
+3. STYLE MATCHING:
+   - Bright/colorful → folk painting style
+   - Elegant/refined → court painting style
+   - Dynamic/action → genre painting style
 
-CRITICAL: Pay special attention to whether the photo shows a PERSON (especially women) or ANIMALS or NATURE.
-Match the PRIMARY subject first, then consider mood and colors.
+CRITICAL: ALWAYS prioritize GENDER and PEOPLE COUNT matching first, then consider other factors.
 
 Return ONLY valid JSON (no markdown, no code blocks):
 {
-  "analysis": "brief photo description: subject type, mood, colors",
+  "analysis": "brief photo description: number of people, their genders, main subject, mood",
   "selected_number": number (1-${artworkDatabase.length}),
   "selected_title": "artwork title",
   "selected_artist": "artist name",
-  "match_reason": "why this artwork matches: subject match + style match"
+  "match_reason": "why this artwork matches: gender match + subject match + style match"
 }
 
-Be precise and prioritize SUBJECT matching above all.`;
+Be precise and prioritize GENDER/PEOPLE matching above all.`;
     
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -217,7 +235,7 @@ Be precise and prioritize SUBJECT matching above all.`;
       },
       signal: controller.signal,
       body: JSON.stringify({
-        model: 'claude-sonnet-4-5',  // Claude Sonnet 4.5 (최신)
+        model: 'claude-sonnet-4-5',
         max_tokens: 600,
         messages: [{
           role: 'user',
@@ -248,163 +266,108 @@ Be precise and prioritize SUBJECT matching above all.`;
     const data = await response.json();
     
     // JSON 파싱 강화 (v28-STABLE)
-    let text = data.content[0].text
-      .replace(/```json\n?/g, '')
-      .replace(/```\n?/g, '')
-      .trim();
+    let responseText = data.content[0].text;
     
-    // { 이전과 } 이후 텍스트 제거 (설명문 제거)
-    const firstBrace = text.indexOf('{');
-    const lastBrace = text.lastIndexOf('}');
-    if (firstBrace !== -1 && lastBrace !== -1) {
-      text = text.substring(firstBrace, lastBrace + 1);
+    // 마크다운 코드 블록 제거
+    responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    
+    // JSON 파싱 시도
+    let parsedData;
+    try {
+      parsedData = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error('JSON parse error:', parseError);
+      console.error('Response text:', responseText);
+      throw new Error('Failed to parse AI response');
     }
     
-    const result = JSON.parse(text);
-    const selectedArtwork = artworkDatabase[result.selected_number - 1];
+    // 선택된 작품 가져오기
+    const selectedIndex = parsedData.selected_number - 1;
     
-    if (!selectedArtwork) {
-      throw new Error('Invalid artwork selection');
+    if (selectedIndex < 0 || selectedIndex >= artworkDatabase.length) {
+      throw new Error(`Invalid artwork number: ${parsedData.selected_number}`);
     }
     
-    console.log(`✓ AI matched ${cultureName} artwork:`, selectedArtwork.title);
+    const selectedArtwork = artworkDatabase[selectedIndex];
+    
+    // v28.10: 커플 사진 감지 및 프롬프트 강화
+    let finalPrompt = selectedArtwork.prompt;
+    const isCouplePhoto = parsedData.analysis.toLowerCase().includes('couple') || 
+                          parsedData.analysis.toLowerCase().includes('man and woman') ||
+                          (parsedData.analysis.toLowerCase().includes('man') && 
+                           parsedData.analysis.toLowerCase().includes('woman'));
+    
+    if (isCouplePhoto) {
+      console.log('🎭 COUPLE PHOTO DETECTED - Enhancing prompt with male reference');
+      finalPrompt = enhanceCouplePrompt(finalPrompt, cultureName);
+    }
     
     return {
       success: true,
+      prompt: finalPrompt,
       artwork: selectedArtwork,
-      artist: `${selectedArtwork.title} (${selectedArtwork.artist})`,
       title: selectedArtwork.title,
-      prompt: selectedArtwork.prompt,
-      analysis: result.analysis,
-      reason: result.match_reason
+      artist: selectedArtwork.artist,
+      analysis: parsedData.analysis,
+      reason: parsedData.match_reason,
+      isCouplePhoto: isCouplePhoto
     };
     
   } catch (error) {
     clearTimeout(timeout);
-    console.error(`${cultureName} artwork selection failed:`, error.message);
-    return { success: false, error: error.message };
+    console.error('AI selection error:', error.message);
+    
+    return {
+      success: false,
+      error: error.message
+    };
   }
 }
 
-// AI 화가 자동 선택 (타임아웃 포함)
+// 서양 미술 AI 선택 함수 (기존 유지)
 async function selectArtistWithAI(imageBase64, selectedStyle, timeoutMs = 8000) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   
   try {
-    // 모든 카테고리 동일 로직: AI가 사진 분석 후 최적 세부 스타일 선택
     let promptText;
     
-    const categoryName = selectedStyle.name;
-    const categoryType = selectedStyle.category;
-    
-    if (categoryType === 'masters') {
-      // 거장: 사진에 가장 잘 맞는 시기/스타일 선택
-      promptText = `Analyze this photo and select the BEST specific period or style from ${categoryName}'s works that matches this photo.
+    if (selectedStyle.category === 'movements') {
+      // 미술사조용 프롬프트
+      promptText = `Analyze this photo and create an art style transfer prompt for the "${selectedStyle.name}" art movement.
 
-${categoryName} created works in various periods and styles. Analyze the photo and select which period/style would transform this photo most beautifully.
+CRITICAL REQUIREMENTS:
+1. Your prompt MUST be in ENGLISH
+2. Your prompt MUST start with: "${selectedStyle.name} painting style"
+3. Describe specific visual characteristics of ${selectedStyle.name} style
+4. Reference the art movement's typical: brushwork, colors, composition, mood
+5. End with: "painted in ${selectedStyle.name} masterpiece quality"
 
-Instructions:
-1. Analyze the photo: subject, mood, colors, composition, lighting, atmosphere
-2. Consider ${categoryName}'s different periods and styles (early works, peak period, different techniques)
-3. Match the photo's characteristics to the MOST SUITABLE period/style from ${categoryName}'s career
-4. Generate a detailed FLUX prompt using that specific period's distinctive characteristics
-5. IMPORTANT: Preserve the original subject - if it's a baby, keep it as a baby; if elderly, keep elderly
-
-Return ONLY valid JSON (no markdown):
-{
-  "analysis": "brief photo analysis (mood, colors, subject)",
-  "selected_artist": "${categoryName}",
-  "selected_period": "specific period or style name (e.g. Blue Period, Arles Period, Golden Period)",
-  "reason": "why THIS specific period of ${categoryName} matches this photo perfectly",
-  "prompt": "painting by ${categoryName} in [specific period], [that period's distinctive techniques and colors], depicting the subject while preserving original features and age"
-}
-
-Keep it concise and accurate.`;
-      
-    } else if (categoryType === 'oriental') {
-      // 동양화: 한국/일본 고정, 중국만 AI 선택
-      const styleId = selectedStyle.id;
-      
-      if (styleId === 'korean') {
-        // 한국 - 무조건 민화 (AI 선택 없음)
-        return {
-          success: true,
-          artist: '한국 민화',
-          reason: 'Korean traditional folk painting style',
-          prompt: fallbackPrompts.korean.prompt,
-          analysis: 'Korean minhwa style applied'
-        };
-      }
-      
-      if (styleId === 'japanese') {
-        // 일본 - 무조건 우키요에 (AI 선택 없음)
-        return {
-          success: true,
-          artist: '일본 우키요에',
-          reason: 'Japanese traditional ukiyo-e style',
-          prompt: fallbackPrompts.japanese.prompt,
-          analysis: 'Japanese ukiyo-e style applied'
-        };
-      }
-      
-      if (styleId === 'chinese') {
-        // 중국 - AI 선택 (수묵화 vs 공필화)
-        promptText = `Analyze this photo and select the best Chinese traditional art style.
-
-You must choose between TWO styles only:
-
-Style 1: Chinese Ink Wash Painting (水墨畫 Shuimohua)
-- Best for: landscapes, nature, contemplative subjects, simple compositions
-- Technique: monochrome black ink, soft brushstrokes, minimalist, empty space
-- Mood: serene, meditative, scholarly
-
-Style 2: Chinese Gongbi Meticulous Painting (工筆畫)
-- Best for: portraits, flowers, birds, detailed subjects, colorful compositions
-- Technique: fine detailed lines, rich mineral colors, ornate patterns
-- Mood: decorative, luxurious, imperial
-
-Analyze the photo and choose the MOST suitable style.
-
-CRITICAL LANGUAGE RULE:
-- ALLOWED: Chinese characters (漢字/汉字) text only
-- ABSOLUTELY FORBIDDEN: Japanese hiragana (ひらがな)
-- ABSOLUTELY FORBIDDEN: Japanese katakana (カタカナ)
-- ABSOLUTELY FORBIDDEN: Any Japanese text format
-- This is PURE CHINESE ART, NOT Japanese art
-- If ANY Japanese characters appear, the result is FAILED
-
-Return ONLY valid JSON (no markdown):
-{
-  "analysis": "brief photo description (1 sentence)",
-  "selected_artist": "Chinese ink wash painting" or "Chinese gongbi painting",
-  "selected_style": "ink_wash" or "gongbi",
-  "reason": "why this style fits (1 sentence)",
-  "prompt": "Complete FLUX prompt starting with 'Chinese [style name] style, [characteristics]... ALLOWED: Chinese (漢字/汉字) text only, ABSOLUTELY NO Japanese hiragana (ひらがな), ABSOLUTELY NO Japanese katakana (カタカナ), NO Japanese text, PURE CHINESE NOT Japanese'"
-}
-
-Keep it concise and accurate.`;
-      }
-      
-    } else {
-      // 미술사조: 사조 내 화가 중 최적 선택
-      promptText = `Analyze this photo and select the BEST artist from ${categoryName} period/style to transform it.
-
-Instructions:
-1. Analyze: subject, age, mood, composition, lighting
-2. Select the MOST SUITABLE ${categoryName} artist for THIS specific photo
-3. Generate a detailed prompt for FLUX Depth in that artist's style
-4. IMPORTANT: Preserve the original subject - if it's a baby, keep it as a baby; if elderly, keep elderly
-
-Return ONLY valid JSON (no markdown):
+Return ONLY valid JSON (no markdown, no code blocks):
 {
   "analysis": "brief photo description",
-  "selected_artist": "Artist Full Name",
-  "reason": "why this artist fits this photo",
-  "prompt": "painting by [Artist], [artist's technique], [artist's characteristics], depicting the subject while preserving original features and age"
-}
+  "prompt": "your complete English prompt starting with '${selectedStyle.name} painting style...'",
+  "reason": "why this style fits the photo"
+}`;
+      
+    } else if (selectedStyle.category === 'masters') {
+      // 거장용 프롬프트
+      const artistName = selectedStyle.name;
+      promptText = `Analyze this photo and create an art style transfer prompt in the style of ${artistName}.
 
-Keep it concise and accurate.`;
+CRITICAL REQUIREMENTS:
+1. Your prompt MUST be in ENGLISH
+2. Your prompt MUST start with: "painting by ${artistName}"
+3. Describe ${artistName}'s distinctive style characteristics
+4. Reference specific techniques, brushwork, color palette that ${artistName} is famous for
+5. Match the photo's subject to ${artistName}'s typical subjects
+
+Return ONLY valid JSON (no markdown, no code blocks):
+{
+  "analysis": "brief photo description",
+  "prompt": "your complete English prompt starting with 'painting by ${artistName}...'",
+  "reason": "why ${artistName}'s style fits this photo"
+}`;
     }
     
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -416,7 +379,7 @@ Keep it concise and accurate.`;
       },
       signal: controller.signal,
       body: JSON.stringify({
-        model: 'claude-sonnet-4-5',  // Claude Sonnet 4.5 (최신)
+        model: 'claude-sonnet-4-5',
         max_tokens: 500,
         messages: [{
           role: 'user',
@@ -445,39 +408,39 @@ Keep it concise and accurate.`;
     }
     
     const data = await response.json();
-    const text = data.content[0].text
-      .replace(/```json\n?/g, '')
-      .replace(/```\n?/g, '')
-      .trim();
+    let responseText = data.content[0].text;
     
-    const result = JSON.parse(text);
+    // 마크다운 제거
+    responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     
-    // 검증
-    if (!result.prompt || !result.selected_artist) {
-      throw new Error('Invalid AI response format');
-    }
+    const parsedData = JSON.parse(responseText);
     
     return {
       success: true,
-      artist: result.selected_artist,
-      reason: result.reason,
-      prompt: result.prompt,
-      analysis: result.analysis
+      prompt: parsedData.prompt,
+      artist: selectedStyle.name,
+      analysis: parsedData.analysis,
+      reason: parsedData.reason
     };
     
   } catch (error) {
     clearTimeout(timeout);
-    console.error('AI selection failed:', error.message);
-    return { success: false, error: error.message };
+    console.error('AI artist selection error:', error.message);
+    
+    return {
+      success: false,
+      error: error.message
+    };
   }
 }
 
 // 메인 핸들러
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Credentials', true);
+  // CORS 설정
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
@@ -489,14 +452,11 @@ export default async function handler(req, res) {
 
   try {
     const { image, selectedStyle } = req.body;
-
-    // 디버깅 로그
-    console.log('=== SDXL Transfer Debug ===');
-    console.log('Has REPLICATE_API_KEY:', !!process.env.REPLICATE_API_KEY);
-    console.log('Has ANTHROPIC_API_KEY:', !!process.env.ANTHROPIC_API_KEY);
-    console.log('Has image:', !!image);
-    console.log('Has selectedStyle:', !!selectedStyle);
-    console.log('selectedStyle:', selectedStyle);
+    
+    console.log('\n=== FLUX Transfer Request ===');
+    console.log('Style category:', selectedStyle?.category);
+    console.log('Style name:', selectedStyle?.name);
+    console.log('Style id:', selectedStyle?.id);
 
     if (!process.env.REPLICATE_API_KEY) {
       console.error('ERROR: REPLICATE_API_KEY not configured');
@@ -505,15 +465,11 @@ export default async function handler(req, res) {
 
     if (!image || !selectedStyle) {
       console.error('ERROR: Missing image or selectedStyle');
-      console.error('image exists:', !!image);
-      console.error('selectedStyle:', JSON.stringify(selectedStyle, null, 2));
       return res.status(400).json({ error: 'Missing image or style' });
     }
 
-    // selectedStyle 구조 검증
     if (!selectedStyle.name || !selectedStyle.category) {
       console.error('ERROR: Invalid selectedStyle structure');
-      console.error('selectedStyle:', JSON.stringify(selectedStyle, null, 2));
       return res.status(400).json({ 
         error: 'Invalid style structure',
         details: 'Missing name or category'
@@ -529,7 +485,7 @@ export default async function handler(req, res) {
     if (selectedStyle.category === 'oriental' && 
         (selectedStyle.id === 'korean' || selectedStyle.id === 'chinese')) {
       
-      console.log(`[v27] Oriental DB matching: ${selectedStyle.id}`);
+      console.log(`[v28.10] Oriental DB matching: ${selectedStyle.id}`);
       
       const artworkDatabase = selectedStyle.id === 'korean' ? koreanArtworks : chineseArtworks;
       const cultureName = selectedStyle.id === 'korean' ? 'Korean' : 'Chinese';
@@ -540,7 +496,7 @@ export default async function handler(req, res) {
         // 1차 시도
         let selection = await selectOrientalArtwork(image, artworkDatabase, cultureName);
         
-        // 1차 실패 시 재시도 (v28-COMMERCIAL)
+        // 1차 실패 시 재시도
         if (!selection.success) {
           console.log('⚠️ First attempt failed, retrying once...');
           selection = await selectOrientalArtwork(image, artworkDatabase, cultureName);
@@ -557,34 +513,27 @@ export default async function handler(req, res) {
             style: selection.artwork.style,
             analysis: selection.analysis,
             match_reason: selection.reason,
+            is_couple_photo: selection.isCouplePhoto || false,
             retried: selection.retried || false
           };
           console.log('✅ AI matched artwork:', selectedArtist);
+          if (selection.isCouplePhoto) {
+            console.log('🎭 Couple photo detected - male reference added');
+          }
         } else {
           console.log('⚠️ Both attempts failed, using smart fallback');
           
-          // 스마트 Fallback: 랜덤 선택으로 다양성 확보
-          let fallbackArtwork;
-          
-          if (selectedStyle.id === 'korean') {
-            // 한국: 랜덤 선택 (다양한 스타일 시도)
-            const randomIndex = Math.floor(Math.random() * artworkDatabase.length);
-            fallbackArtwork = artworkDatabase[randomIndex];
-            console.log(`🎲 Korean fallback random selection: ${fallbackArtwork.title} (${randomIndex + 1}/${artworkDatabase.length})`);
-          } else {
-            // 중국: 랜덤 선택
-            const randomIndex = Math.floor(Math.random() * artworkDatabase.length);
-            fallbackArtwork = artworkDatabase[randomIndex];
-            console.log(`🎲 Chinese fallback random selection: ${fallbackArtwork.title} (${randomIndex + 1}/${artworkDatabase.length})`);
-          }
+          // 스마트 Fallback
+          const randomIndex = Math.floor(Math.random() * artworkDatabase.length);
+          const fallbackArtwork = artworkDatabase[randomIndex];
+          console.log(`🎲 Fallback random selection: ${fallbackArtwork.title}`);
           
           finalPrompt = fallbackArtwork.prompt;
           selectedArtist = `${fallbackArtwork.title} (${fallbackArtwork.artist})`;
           selectionMethod = 'oriental_db_smart_fallback';
           selectionDetails = {
             artwork_id: fallbackArtwork.id,
-            error: selection.error,
-            fallback_reason: 'Using landscape painting as safe fallback'
+            error: selection.error
           };
         }
       } else {
@@ -614,14 +563,9 @@ export default async function handler(req, res) {
     } else if (process.env.ANTHROPIC_API_KEY) {
       console.log(`Trying AI artist selection for ${selectedStyle.name}...`);
       
-      const aiResult = await selectArtistWithAI(
-        image, 
-        selectedStyle,  // ← selectedStyle 객체 전체 전달
-        8000 // 8초 타임아웃
-      );
+      const aiResult = await selectArtistWithAI(image, selectedStyle, 8000);
       
       if (aiResult.success) {
-        // AI 성공!
         finalPrompt = aiResult.prompt;
         selectedArtist = aiResult.artist;
         selectionMethod = 'ai_auto';
@@ -631,173 +575,105 @@ export default async function handler(req, res) {
         };
         console.log('✅ AI selected:', selectedArtist);
       } else {
-        // AI 실패 → Fallback
         console.log('⚠️ AI failed, using fallback');
         
-        // 거장/동양화는 id에서 키 추출, 미술사조는 category 사용
         let fallbackKey = selectedStyle.category;
         
         if (selectedStyle.category === 'masters') {
-          // 'picasso-master' → 'picasso'
           fallbackKey = selectedStyle.id.replace('-master', '');
-          
-          // 특수 케이스: vangogh → van_gogh
           if (fallbackKey === 'vangogh') {
             fallbackKey = 'van_gogh';
           }
         } else if (selectedStyle.category === 'oriental') {
-          // 동양화 fallback 키 설정
           if (selectedStyle.id === 'chinese') {
-            fallbackKey = 'chinese_ink';  // 중국은 기본 수묵화
-          } else {
-            fallbackKey = selectedStyle.id;  // korean, japanese
+            fallbackKey = 'chinese_ink';
+          } else if (selectedStyle.id === 'korean') {
+            fallbackKey = 'korean';
+          } else if (selectedStyle.id === 'japanese') {
+            fallbackKey = 'japanese';
           }
         }
         
-        console.log('Using fallback key:', fallbackKey);
-        const fallback = fallbackPrompts[fallbackKey];
-        
-        if (!fallback) {
-          console.error('ERROR: No fallback found for key:', fallbackKey);
-          console.error('Available categories:', Object.keys(fallbackPrompts));
-          throw new Error(`No fallback prompt for: ${fallbackKey}`);
-        }
-        
+        const fallback = fallbackPrompts[fallbackKey] || fallbackPrompts.masters;
         finalPrompt = fallback.prompt;
         selectedArtist = fallback.name;
         selectionMethod = 'fallback';
         selectionDetails = {
-          ai_error: aiResult.error
+          fallback_key: fallbackKey,
+          error: aiResult.error
         };
       }
+      
+    // 4. AI 없을 때 기본 Fallback
     } else {
-      // ANTHROPIC_API_KEY 없음 → Fallback
-      console.log('ℹ️ No AI key, using fallback');
+      console.log('No AI available - using basic fallback');
       
-      // 거장/동양화는 id에서 키 추출, 미술사조는 category 사용
       let fallbackKey = selectedStyle.category;
-      
       if (selectedStyle.category === 'masters') {
-        // 'picasso-master' → 'picasso'
         fallbackKey = selectedStyle.id.replace('-master', '');
-        
-        // 특수 케이스: vangogh → van_gogh
-        if (fallbackKey === 'vangogh') {
-          fallbackKey = 'van_gogh';
-        }
-      } else if (selectedStyle.category === 'oriental') {
-        // 동양화: 간단하게 처리
-        if (selectedStyle.id === 'korean') {
-          fallbackKey = 'korean';
-        } else if (selectedStyle.id === 'chinese') {
-          // 중국은 기본 수묵화
-          fallbackKey = 'chinese_ink';
-        } else if (selectedStyle.id === 'japanese') {
-          fallbackKey = 'japanese';
-        }
+        if (fallbackKey === 'vangogh') fallbackKey = 'van_gogh';
       }
       
-      console.log('Using fallback key:', fallbackKey);
-      const fallback = fallbackPrompts[fallbackKey];
-      
-      if (!fallback) {
-        console.error('ERROR: No fallback found for key:', fallbackKey);
-        console.error('Available categories:', Object.keys(fallbackPrompts));
-        throw new Error(`No fallback prompt for: ${fallbackKey}`);
-      }
-      
+      const fallback = fallbackPrompts[fallbackKey] || fallbackPrompts.masters;
       finalPrompt = fallback.prompt;
       selectedArtist = fallback.name;
-      selectionMethod = 'fallback_no_key';
+      selectionMethod = 'no_ai_fallback';
+      selectionDetails = {
+        fallback_key: fallbackKey
+      };
     }
 
-    console.log('Final prompt:', finalPrompt);
-    
-    // FLUX Depth 변환 (최신 API 버전)
-    const response = await fetch(
-      'https://api.replicate.com/v1/models/black-forest-labs/flux-depth-dev/predictions',
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `Token ${process.env.REPLICATE_API_KEY}`,
-          'Content-Type': 'application/json',
-          'Prefer': 'wait'
-        },
-        body: JSON.stringify({
-          input: {
-            control_image: image,
-            prompt: finalPrompt,
-            num_inference_steps: 24,       // 28 → 24 (속도 최적화)
-            guidance: 11,                   // 12 → 11 (품질 균형)
-            output_format: 'jpg',
-            output_quality: 90
-          }
-        })
-      }
-    );
+    console.log('Final prompt preview:', finalPrompt.substring(0, 100) + '...');
+    console.log('Selection method:', selectionMethod);
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('FLUX Depth error:', response.status, errorText);
-      return res.status(response.status).json({ 
-        error: `FLUX API error: ${response.status}`,
-        details: errorText
-      });
-    }
-
-    const data = await response.json();
-    console.log('✅ FLUX Depth completed');
-    
-    // 결과에 선택 정보 포함
-    res.status(200).json({
-      ...data,
-      selected_artist: selectedArtist,
-      selection_method: selectionMethod,
-      selection_details: selectionDetails
+    // FLUX API 호출
+    const fluxResponse = await fetch('https://api.replicate.com/v1/predictions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.REPLICATE_API_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'wait'
+      },
+      body: JSON.stringify({
+        version: "753ac9fe5c94b954faa67dc0b1e9f98f1cc8aaf6e31cbfb0a7c29c3a43063afb",
+        input: {
+          control_image: image,
+          prompt: finalPrompt,
+          control_strength: 0.45,
+          num_inference_steps: 28,
+          seed: Math.floor(Math.random() * 1000000)
+        }
+      })
     });
-    
+
+    if (!fluxResponse.ok) {
+      const errorText = await fluxResponse.text();
+      console.error('FLUX API error:', fluxResponse.status, errorText);
+      throw new Error(`FLUX API failed: ${fluxResponse.status}`);
+    }
+
+    const fluxData = await fluxResponse.json();
+    console.log('FLUX response status:', fluxData.status);
+
+    if (fluxData.status === 'failed') {
+      throw new Error('FLUX processing failed');
+    }
+
+    return res.status(200).json({
+      success: true,
+      id: fluxData.id,
+      status: fluxData.status,
+      output: fluxData.output,
+      artist: selectedArtist,
+      selectionMethod: selectionMethod,
+      selectionDetails: selectionDetails
+    });
+
   } catch (error) {
     console.error('Handler error:', error);
-    res.status(500).json({ 
-      error: error.message,
+    return res.status(500).json({ 
+      error: error.message || 'Unknown error',
       stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
 }
-
-/*
-작동 방식:
-
-시나리오 1: AI 성공 (95%)
-─────────────────────────
-사진: 아기
-선택: 바로크
-
-AI 분석 중... (3초)
-✅ AI 선택: 루벤스
-이유: "아기 그림 전문"
-프롬프트: "Baroque by Rubens, cherubic baby..."
-
-FLUX 변환... (30초)
-결과: 루벤스 스타일 아기 ✅
-
-시나리오 2: AI 실패 (5%)
-─────────────────────────
-사진: 아기
-선택: 바로크
-
-AI 분석 중... (타임아웃 또는 에러)
-⚠️ Fallback 사용
-프롬프트: "Baroque style, dramatic lighting..."
-
-FLUX 변환... (30초)
-결과: 바로크 스타일 아기 ✅ (화가명 없지만 작동)
-
-시나리오 3: API 키 없음
-─────────────────────────
-ℹ️ AI 키 없음
-Fallback 사용
-
-FLUX 변환... (30초)
-결과: 기본 스타일 ✅
-*/
