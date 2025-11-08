@@ -701,7 +701,7 @@ export default async function handler(req, res) {
 
     console.log('Final prompt:', finalPrompt);
     
-    // FLUX Depth 변환
+    // FLUX Depth 변환 (최신 API 버전)
     const response = await fetch(
       'https://api.replicate.com/v1/models/black-forest-labs/flux-depth-dev/predictions',
       {
@@ -715,9 +715,8 @@ export default async function handler(req, res) {
           input: {
             control_image: image,
             prompt: finalPrompt,
-            control_strength: 0.85,        // 0.6 → 0.85 (원본 구조 강하게 유지)
-            num_inference_steps: 28,
-            guidance_scale: 5.0,           // 3.5 → 5.0 (프롬프트 더 강하게 따름)
+            num_inference_steps: 28,       // 28-50 추천
+            guidance: 10,                   // 기본값 10 (guidance_scale 대체)
             output_format: 'jpg',
             output_quality: 90
           }
