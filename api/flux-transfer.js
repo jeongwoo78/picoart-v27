@@ -14,16 +14,16 @@ const chineseArtworks = [
 ];
 
 const koreanArtworks = [
-  {id:'korean_01',title:'미인도',artist:'신윤복',subjects:['women','beauty','portraits'],colors:['soft pastels'],mood:'elegant',style:'beauty portrait',prompt:'Korean beauty portrait painting by Shin Yunbok, elegant graceful Korean female figure, delicate fine lines, soft gentle colors, Korean traditional beauty aesthetic, refined composition, Joseon Dynasty painting masterpiece quality, Chinese characters allowed, NOT Chinese style, NOT Japanese style, NO Japanese kana'},
-  {id:'korean_02',title:'까치호랑이',artist:'민화',subjects:['tiger','magpie','animals'],colors:['bright colors','bold outlines'],mood:'cheerful',style:'folk painting',prompt:'Korean folk painting (Minhwa) style, bold black outlines, vibrant bright colors from five Korean colors (Obangsaek: red blue yellow white black), humorous cheerful tiger and magpie, flat decorative composition, naive playful folk aesthetic, traditional Korean minhwa masterpiece quality, Chinese characters allowed, NOT Chinese style, NOT Japanese style, NO Japanese kana'},
-  {id:'korean_03',title:'단오풍정',artist:'신윤복',subjects:['festival','people','celebration'],colors:['vibrant colors'],mood:'joyful',style:'genre painting',prompt:'Korean festival scene genre painting by Shin Yunbok, joyful gathering of Korean women in traditional clothing, vibrant festive colors, narrative social interaction, Joseon Dynasty painting masterpiece quality, Chinese characters allowed, NOT Chinese style, NOT Japanese style, NO Japanese kana'},
-  {id:'korean_04',title:'월하정인',artist:'신윤복',subjects:['people','romance','night'],colors:['soft colors','moonlit tones'],mood:'romantic',style:'genre painting',prompt:'Korean romantic genre painting by Shin Yunbok, moonlit atmospheric scene, elegant Korean figures, soft refined colors, delicate narrative composition, romantic mood, Joseon Dynasty painting masterpiece quality, Chinese characters allowed, NOT Chinese style, NOT Japanese style, NO Japanese kana'},
-  {id:'korean_05',title:'모란도',artist:'민화',subjects:['peony','birds','flowers'],colors:['rich vibrant colors'],mood:'prosperous',style:'folk flower',prompt:'Korean folk peony painting (Minhwa) style, PRESERVE original photo composition and subjects, rich vibrant peony flowers, decorative birds, bold colors, flat ornate composition, prosperity symbolism, traditional Korean folk art masterpiece quality, NO anime style, NO additional characters, Chinese characters allowed, NOT Chinese style, NOT Japanese style, NO Japanese kana'},
-  {id:'korean_06',title:'책거리',artist:'민화',subjects:['books','stationery','still life','scholar objects'],colors:['bright colors','colorful patterns'],mood:'scholarly',style:'folk still life',prompt:'Korean folk chaekgeori painting style, stacked books and scholar objects, bright decorative colors, flat perspective, ornate patterns, geometric composition, traditional Korean folk still life masterpiece quality, scholarly atmosphere, Chinese characters allowed, NOT Chinese style, NOT Japanese style, NO Japanese kana'},
-  {id:'korean_07',title:'맹호도',artist:'조선시대',subjects:['tiger','fierce','animal','pine tree'],colors:['black ink','brown','aged paper'],mood:'powerful',style:'realistic animal',prompt:'Korean fierce tiger painting style, realistic powerful tiger under pine tree, detailed fur texture, monochrome ink with subtle colors, dignified imposing presence, traditional Korean tiger painting masterpiece quality, Chinese characters allowed, NOT Chinese style, NOT Japanese style, NO Japanese kana'},
-  {id:'korean_08',title:'인왕제색도',artist:'정선',subjects:['mountains','rocks','landscape'],colors:['black ink','grey'],mood:'powerful',style:'true-view landscape',prompt:'Korean true-view landscape painting (Jingyeong Sansu) style by Jeong Seon, bold powerful rocky mountains, dramatic expressive brushwork, monochrome black ink washes, authentic Korean scenery, dynamic composition, masterpiece quality, Chinese characters allowed, NOT Chinese style, NOT Japanese style, NO Japanese kana'},
-  {id:'korean_09',title:'화조도',artist:'조선시대',subjects:['flowers','birds','nature'],colors:['natural harmonious colors'],mood:'harmonious',style:'flower bird',prompt:'Korean flower and bird painting style, PRESERVE original photo composition and subjects, harmonious composition, natural elegant colors, refined delicate brushwork, Korean aesthetic sensibility, traditional painting masterpiece quality, NO anime style, NO additional characters, Chinese characters allowed, NOT Chinese style, NOT Japanese style, NO Japanese kana'},
-  {id:'korean_10',title:'씨름',artist:'김홍도',subjects:['sport','wrestling','people','men'],colors:['natural earth tones'],mood:'lively',style:'genre painting',prompt:'Korean wrestling scene genre painting by Kim Hongdo, dynamic action of Korean traditional wrestling (Ssireum), lively crowd of men, natural earth tone colors, energetic composition, Joseon Dynasty painting masterpiece quality, Chinese characters allowed, NOT Chinese style, NOT Japanese style, NO Japanese kana'}
+  {id:'korean_01',title:'미인도',artist:'신윤복',subjects:['women','beauty','portraits'],colors:['soft pastels'],mood:'elegant',style:'beauty portrait',prompt:'Korean Hyewon Shin Yunbok Joseon Dynasty Pungsokdo genre painting beauty portrait, delicate refined brushwork showing elegant Korean woman in hanbok, soft pastel colors unique to Korean aesthetic, gentle contemplative expression, painted on hanji paper, KOREAN GENRE PAINTING not Chinese gongbi court ladies, absolutely NOT Japanese ukiyo-e bijinga, Chinese characters allowed, NO Japanese kana'},
+  {id:'korean_02',title:'까치호랑이',artist:'민화',subjects:['tiger','magpie','animals'],colors:['bright colors','bold outlines'],mood:'cheerful',style:'folk painting',prompt:'Korean Minhwa folk painting style, THICK BOLD BLACK OUTLINES around every shape (critical feature), BRIGHT PRIMARY colors from Obangsaek (red blue yellow white black), completely FLAT naive composition, childlike playful humorous tiger and magpie, painted by Korean common folk NOT professional artists, ABSOLUTELY NOT elegant Chinese painting, ABSOLUTELY NOT sophisticated Japanese ukiyo-e, this bold outline naive style is UNIQUELY KOREAN, Chinese characters allowed, NO Japanese kana'},
+  {id:'korean_03',title:'단오풍정',artist:'신윤복',subjects:['festival','people','celebration'],colors:['vibrant colors'],mood:'joyful',style:'genre painting',prompt:'Korean Hyewon Shin Yunbok Joseon Dynasty Pungsokdo genre painting, Dano festival scene with Korean women in colorful hanbok outdoors, vibrant festive atmosphere, narrative storytelling of Korean daily life, painted on hanji with mineral pigments, KOREAN GENRE PAINTING tradition unique to Joseon Korea, absolutely NOT Chinese court formality, absolutely NOT Japanese ukiyo-e entertainment, Chinese characters allowed, NO Japanese kana'},
+  {id:'korean_04',title:'월하정인',artist:'신윤복',subjects:['people','romance','night'],colors:['soft colors','moonlit tones'],mood:'romantic',style:'genre painting',prompt:'Korean Hyewon Shin Yunbok romantic moonlight Pungsokdo genre painting, Joseon Dynasty style, Korean figures in hanbok under moonlight, soft refined colors with ink washes, intimate romantic narrative, KOREAN ROMANTIC GENRE PAINTING tradition, absolutely NOT Chinese scholar painting, absolutely NOT Japanese ukiyo-e drama, Chinese characters allowed, NO Japanese kana'},
+  {id:'korean_05',title:'모란도',artist:'민화',subjects:['peony','birds','flowers'],colors:['rich vibrant colors'],mood:'prosperous',style:'folk flower',prompt:'Korean Minhwa folk painting PEONY flowers, PRESERVE photo composition, THICK BLACK OUTLINES around all shapes, BRIGHT PRIMARY colors from Obangsaek, completely FLAT decorative naive composition, prosperity symbolism, DISTINCTLY KOREAN MINHWA not refined Chinese Huaniao, absolutely NOT elegant Japanese flower prints, NO anime, NO added characters, Chinese characters allowed, NO Japanese kana'},
+  {id:'korean_06',title:'책거리',artist:'민화',subjects:['books','stationery','still life','scholar objects'],colors:['bright colors','colorful patterns'],mood:'scholarly',style:'folk still life',prompt:'Korean Minhwa Chaekgeori folk painting scholar objects still life, THICK BLACK OUTLINES, stacked books and objects, BRIGHT decorative colors, FLAT impossible perspective, geometric ornate patterns, uniquely KOREAN folk genre, ABSOLUTELY NOT Chinese scholar paintings, ABSOLUTELY NOT Japanese screens, Chinese characters allowed on books, NO Japanese kana'},
+  {id:'korean_07',title:'맹호도',artist:'조선시대',subjects:['tiger','fierce','animal','pine tree'],colors:['black ink','brown','aged paper'],mood:'powerful',style:'realistic animal',prompt:'Korean Joseon Dynasty fierce tiger painting Maenghodo, realistic powerful Korean tiger under pine tree, detailed fur texture, monochrome ink with subtle brown on aged hanji, dignified guardian symbolism, bold expressive Korean brushwork, KOREAN TIGER PAINTING tradition, absolutely NOT Chinese decorative tigers, absolutely NOT Japanese stylized tigers, Chinese characters allowed, NO Japanese kana'},
+  {id:'korean_08',title:'인왕제색도',artist:'정선',subjects:['mountains','rocks','landscape'],colors:['black ink','grey'],mood:'powerful',style:'true-view landscape',prompt:'Korean Jeong Seon Jingyeong Sansu true-view landscape, bold powerful Inwangsan rocky mountains of Korea, dramatic EXPRESSIVE brushwork unique to Korean landscape tradition, monochrome ink with bold angular forms, REAL Korean scenery not idealized Chinese mountains, revolutionary Korean style rejecting Chinese conventions, absolutely NOT Chinese literati landscapes, absolutely NOT Japanese decorative landscapes, Chinese characters allowed, NO Japanese kana'},
+  {id:'korean_09',title:'화조도',artist:'조선시대',subjects:['flowers','birds','nature'],colors:['natural harmonious colors'],mood:'harmonious',style:'flower bird',prompt:'Korean Joseon Dynasty Hwajodo flower-bird painting, PRESERVE photo composition, harmonious naturalistic composition, natural elegant colors, refined brushwork on hanji, Korean aesthetic sensibility, peaceful contemplative mood, KOREAN FLOWER-BIRD tradition, absolutely NOT Chinese decorative Huaniao, absolutely NOT Japanese bold bird prints, NO anime, NO added characters, Chinese characters allowed, NO Japanese kana'},
+  {id:'korean_10',title:'씨름',artist:'김홍도',subjects:['sport','wrestling','people','men'],colors:['natural earth tones'],mood:'lively',style:'genre painting',prompt:'Korean Danwon Kim Hongdo Pungsokdo genre painting, dynamic Ssireum wrestling action capturing intense moment, lively crowd of Korean men, natural earth tones, energetic composition showing Korean folk culture and sports, painted on hanji with swift brushwork, ICONIC KOREAN GENRE PAINTING of common people daily life, Joseon Dynasty social documentation, absolutely NOT Chinese court paintings, absolutely NOT Japanese sumo scenes, Chinese characters allowed, NO Japanese kana'}
 ];
 
 // Fallback 프롬프트 (AI 실패시 사용)
@@ -146,7 +146,7 @@ const fallbackPrompts = {
 };
 
 // 동양화 DB 매칭 함수
-async function selectOrientalArtwork(imageBase64, artworkDatabase, cultureName, timeoutMs = 10000) {
+async function selectOrientalArtwork(imageBase64, artworkDatabase, cultureName, timeoutMs = 12000) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   
@@ -160,6 +160,11 @@ async function selectOrientalArtwork(imageBase64, artworkDatabase, cultureName, 
       colors: art.colors.join(', '),
       mood: art.mood
     }));
+    
+    // v28: 스타일 구분 강화
+    const styleEmphasis = cultureName === 'Korean' 
+      ? '\n\nIMPORTANT: You are selecting KOREAN traditional painting. Do NOT confuse with Chinese or Japanese styles. Korean art uses Chinese characters but has distinct Korean aesthetic.'
+      : '\n\nIMPORTANT: You are selecting CHINESE traditional painting. Focus on Chinese-specific characteristics. Chinese art uses Chinese characters as essential cultural elements.';
     
     const promptText = `You are an expert art curator specializing in ${cultureName} traditional painting.
 
@@ -241,7 +246,20 @@ Be precise and prioritize SUBJECT matching above all.`;
     }
     
     const data = await response.json();
-    const text = data.content[0].text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    
+    // JSON 파싱 강화 (v28-STABLE)
+    let text = data.content[0].text
+      .replace(/```json\n?/g, '')
+      .replace(/```\n?/g, '')
+      .trim();
+    
+    // { 이전과 } 이후 텍스트 제거 (설명문 제거)
+    const firstBrace = text.indexOf('{');
+    const lastBrace = text.lastIndexOf('}');
+    if (firstBrace !== -1 && lastBrace !== -1) {
+      text = text.substring(firstBrace, lastBrace + 1);
+    }
+    
     const result = JSON.parse(text);
     const selectedArtwork = artworkDatabase[result.selected_number - 1];
     
@@ -509,32 +527,52 @@ export default async function handler(req, res) {
       const cultureName = selectedStyle.id === 'korean' ? 'Korean' : 'Chinese';
       
       if (process.env.ANTHROPIC_API_KEY) {
-        console.log(`Trying AI artwork selection from ${cultureName} database (8 artworks)...`);
+        console.log(`Trying AI artwork selection from ${cultureName} database...`);
         
-        const selection = await selectOrientalArtwork(image, artworkDatabase, cultureName);
+        // 1차 시도
+        let selection = await selectOrientalArtwork(image, artworkDatabase, cultureName);
+        
+        // 1차 실패 시 재시도 (v28-COMMERCIAL)
+        if (!selection.success) {
+          console.log('⚠️ First attempt failed, retrying once...');
+          selection = await selectOrientalArtwork(image, artworkDatabase, cultureName);
+        }
         
         if (selection.success) {
           finalPrompt = selection.prompt;
           selectedArtist = selection.artist;
-          selectionMethod = 'oriental_db_match';
+          selectionMethod = selection.retried ? 'oriental_db_match_retry' : 'oriental_db_match';
           selectionDetails = {
             artwork_id: selection.artwork.id,
             artwork_title: selection.title,
             artist: selection.artwork.artist,
             style: selection.artwork.style,
             analysis: selection.analysis,
-            match_reason: selection.reason
+            match_reason: selection.reason,
+            retried: selection.retried || false
           };
           console.log('✅ AI matched artwork:', selectedArtist);
         } else {
-          console.log('⚠️ AI matching failed, using first artwork as fallback');
-          const fallbackArtwork = artworkDatabase[0];
+          console.log('⚠️ Both attempts failed, using smart fallback');
+          
+          // 스마트 Fallback: 첫 번째가 아닌 범용적인 작품 선택
+          let fallbackArtwork;
+          
+          if (selectedStyle.id === 'korean') {
+            // 한국: 인왕제색도 (산수화) - 가장 범용적
+            fallbackArtwork = artworkDatabase.find(a => a.id === 'korean_08') || artworkDatabase[0];
+          } else {
+            // 중국: 천리강산도 (산수화) - 가장 범용적
+            fallbackArtwork = artworkDatabase.find(a => a.id === 'chinese_01') || artworkDatabase[0];
+          }
+          
           finalPrompt = fallbackArtwork.prompt;
           selectedArtist = `${fallbackArtwork.title} (${fallbackArtwork.artist})`;
-          selectionMethod = 'oriental_db_fallback';
+          selectionMethod = 'oriental_db_smart_fallback';
           selectionDetails = {
             artwork_id: fallbackArtwork.id,
-            error: selection.error
+            error: selection.error,
+            fallback_reason: 'Using landscape painting as safe fallback'
           };
         }
       } else {
