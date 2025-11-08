@@ -725,7 +725,7 @@ export default async function handler(req, res) {
             control_image: image,
             prompt: finalPrompt,
             num_inference_steps: 28,       // 28-50 추천
-            guidance: 7,                    // 10 → 7 (일본 오인식 방지)
+            guidance: 10,                   // 전통화 스타일 강화
             output_format: 'jpg',
             output_quality: 90
           }
