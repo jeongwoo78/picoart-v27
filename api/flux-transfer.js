@@ -217,7 +217,7 @@ Be precise and prioritize SUBJECT matching above all.`;
       },
       signal: controller.signal,
       body: JSON.stringify({
-        model: 'claude-3-5-sonnet-20241022',
+        model: 'claude-sonnet-4-5',  // Claude Sonnet 4.5 (최신)
         max_tokens: 600,
         messages: [{
           role: 'user',
@@ -408,7 +408,7 @@ Keep it concise and accurate.`;
       },
       signal: controller.signal,
       body: JSON.stringify({
-        model: 'claude-3-5-sonnet-20241022',
+        model: 'claude-sonnet-4-5',  // Claude Sonnet 4.5 (최신)
         max_tokens: 500,
         messages: [{
           role: 'user',
@@ -555,15 +555,19 @@ export default async function handler(req, res) {
         } else {
           console.log('⚠️ Both attempts failed, using smart fallback');
           
-          // 스마트 Fallback: 첫 번째가 아닌 범용적인 작품 선택
+          // 스마트 Fallback: 랜덤 선택으로 다양성 확보
           let fallbackArtwork;
           
           if (selectedStyle.id === 'korean') {
-            // 한국: 인왕제색도 (산수화) - 가장 범용적
-            fallbackArtwork = artworkDatabase.find(a => a.id === 'korean_08') || artworkDatabase[0];
+            // 한국: 랜덤 선택 (다양한 스타일 시도)
+            const randomIndex = Math.floor(Math.random() * artworkDatabase.length);
+            fallbackArtwork = artworkDatabase[randomIndex];
+            console.log(`🎲 Korean fallback random selection: ${fallbackArtwork.title} (${randomIndex + 1}/${artworkDatabase.length})`);
           } else {
-            // 중국: 천리강산도 (산수화) - 가장 범용적
-            fallbackArtwork = artworkDatabase.find(a => a.id === 'chinese_01') || artworkDatabase[0];
+            // 중국: 랜덤 선택
+            const randomIndex = Math.floor(Math.random() * artworkDatabase.length);
+            fallbackArtwork = artworkDatabase[randomIndex];
+            console.log(`🎲 Chinese fallback random selection: ${fallbackArtwork.title} (${randomIndex + 1}/${artworkDatabase.length})`);
           }
           
           finalPrompt = fallbackArtwork.prompt;
