@@ -626,25 +626,27 @@ export default async function handler(req, res) {
     console.log('Final prompt preview:', finalPrompt.substring(0, 100) + '...');
     console.log('Selection method:', selectionMethod);
 
-    // FLUX API 호출
-    const fluxResponse = await fetch('https://api.replicate.com/v1/predictions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.REPLICATE_API_KEY}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'wait'
-      },
-      body: JSON.stringify({
-        version: "753ac9fe5c94b954faa67dc0b1e9f98f1cc8aaf6e31cbfb0a7c29c3a43063afb",
-        input: {
-          control_image: image,
-          prompt: finalPrompt,
-          control_strength: 0.45,
-          num_inference_steps: 28,
-          seed: Math.floor(Math.random() * 1000000)
-        }
-      })
-    });
+    // FLUX Depth API 호출 (원래 버전)
+    const fluxResponse = await fetch(
+      'https://api.replicate.com/v1/models/black-forest-labs/flux-depth-dev/predictions',
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Token ${process.env.REPLICATE_API_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'wait'
+        },
+        body: JSON.stringify({
+          input: {
+            control_image: image,
+            prompt: finalPrompt,
+            num_inference_steps: 24,
+            control_strength: 0.65,
+            seed: Math.floor(Math.random() * 1000000)
+          }
+        })
+      }
+    );
 
     if (!fluxResponse.ok) {
       const errorText = await fluxResponse.text();
